@@ -1,0 +1,47 @@
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title>
+      <span *ngIf="quiz.hasOwnProperty('id')">Edit Quiz</span>
+      <span *ngIf="!quiz.hasOwnProperty('id')">New Quiz</span>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form>
+      <mat-form-field class="fullWidth">
+        <mat-label>Quiz Title</mat-label>
+        <input
+          [(ngModel)]="quiz.title"
+          name="Title"
+          matInput
+          placeholder="Quiz Title"
+        />
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button
+      *ngIf="!quiz.hasOwnProperty('id')"
+      (click)="api.postQuiz(quiz)"
+      mat-button
+    >
+      POST
+    </button>
+    <button
+      *ngIf="quiz.hasOwnProperty('id')"
+      (click)="api.putQuiz(quiz)"
+      mat-button
+    >
+      EDIT
+    </button>
+    <button *ngIf="quiz.hasOwnProperty('id')" (click)="reset()" mat-button>
+      NEW
+    </button>
+    <button
+      *ngIf="quiz.hasOwnProperty('id')"
+      [routerLink]="['/question', quiz['id']]"
+      mat-button
+    >
+      EDIT QUESTION
+    </button>
+  </mat-card-actions>
+</mat-card>
